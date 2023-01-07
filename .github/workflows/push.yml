@@ -15,7 +15,8 @@ jobs:
       run: |
         curl -L https://github.com/x-motemen/blogsync/releases/download/v0.12.3/blogsync_v0.12.3_linux_amd64.tar.gz > a.tar.gz
         tar xvfz a.tar.gz
-        mv blogsync_v0.12.3_linux_amd64/blogsync /usr/bin/blogsync
+        mv blogsync_v0.12.3_linux_amd64/blogsync /tmp/blogsync
+        chmod +x /tmp/blogsync
 
     - uses: actions/checkout@v3
 
@@ -27,5 +28,5 @@ jobs:
         BSY: ${{ secrets.BSY }}
       run: |
         echo -e ${BSY} > blogsync.yaml
-        git diff origin/master  --name-only| egrep "entries/.+.md$" | xargs -t -n1 blogsync push
+        git diff origin/master  --name-only| egrep "entries/.+.md$" | xargs -t -n1 /tmp/blogsync push
 
