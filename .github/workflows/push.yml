@@ -27,6 +27,8 @@ jobs:
       env:
         BSY: ${{ secrets.BSY }}
       run: |
+        pwd
+        echo -e ${BSY}
         echo -e ${BSY} > blogsync.yaml
         git diff origin/master  --name-only| egrep "entries/.+.md$" | xargs -t -n1 /tmp/blogsync push
 
